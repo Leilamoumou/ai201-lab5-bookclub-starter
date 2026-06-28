@@ -48,6 +48,14 @@ services/
 seed_data.py            Database seed script
 ```
 
+## Milestones
+
+- **Milestone 1: Reproduce the bugs** — Verified the seeded API responses for Alex and identified that the streak stat and reading history order were both incorrect.
+- **Milestone 2: Diagnose Bug 1** — Compared the streak docstring contract with the implementation and confirmed the streak logic was using the wrong field for its date calculation.
+- **Milestone 3: Fix Bug 1** — Updated the streak calculation to use finished dates, and confirmed the streak now matches the expected value while the other stats remain correct.
+- **Milestone 4: Fix Bug 2** — Traced the history endpoint to the reading service query and updated the ordering to use most recently finished books first.
+- **Optional challenge: Add tests** — Added pytest regression tests for streak calculation and history ordering using an in-memory SQLite database.
+
 ## Running example requests
 
 After seeding, use `curl` or any HTTP client. The seed script prints all three user IDs — use them in the examples below:
