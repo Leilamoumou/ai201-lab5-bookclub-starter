@@ -32,13 +32,13 @@ def calculate_streak(user_id: str) -> int:
 
     # Collect unique reading dates, most recent first.
     dates = sorted(
-        set(e.started_at.date() for e in events),
+        set(e.finished_at.date() for e in events),
         reverse=True,
     )
 
     today = date.today()
 
-    # Streak must start from today or yesterday — otherwise it has already broken.
+    # Streak must start from today or yesterday, it has already broken if not.
     if (today - dates[0]).days > 1:
         return 0
 
