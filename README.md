@@ -50,11 +50,22 @@ seed_data.py            Database seed script
 
 ## Milestones
 
-- **Milestone 1: Reproduce the bugs** — Verified the seeded API responses for Alex and identified that the streak stat and reading history order were both incorrect.
-- **Milestone 2: Diagnose Bug 1** — Compared the streak docstring contract with the implementation and confirmed the streak logic was using the wrong field for its date calculation.
-- **Milestone 3: Fix Bug 1** — Updated the streak calculation to use finished dates, and confirmed the streak now matches the expected value while the other stats remain correct.
-- **Milestone 4: Fix Bug 2** — Traced the history endpoint to the reading service query and updated the ordering to use most recently finished books first.
-- **Optional challenge: Add tests** — Added pytest regression tests for streak calculation and history ordering using an in-memory SQLite database.
+- Milestone 1:
+  -  Read the Codebase — Traced the call chain from the stats route through the service layer to the model. Identified that calculate_streak() and get_reading_history() both depend on reading event date fields, and noted what get_reading_history() guarantees about the events it returns.
+
+- Milestone 2:
+  - See Both Bugs in Action — Hit the stats and history endpoints for alex, confirmed reading_streak returned 0, and noted the history came back in the wrong order. Calculated the expected streak value from the finished dates to use as a verification target.
+
+- Milestone 3:
+  - Trace and Fix Bug 1 — Compared the calculate_streak() docstring against the implementation and found it was using started_at where the contract specified finished_at. Changed one field reference and confirmed the streak matched the expected value with other stats unchanged.
+
+- Milestone 4:
+  - Trace and Fix Bug 2 — Traced the history endpoint to get_reading_history() and found the order_by clause used started_at instead of finished_at. Fixed the ordering and confirmed that history now returns the most recently finished first across multiple users.
+
+- Optional:
+  -  Added regression tests — Added pytest tests covering streak calculation and history ordering using an in-memory SQLite database.
+
+
 
 ## Running example requests
 
